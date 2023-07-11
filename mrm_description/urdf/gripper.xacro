@@ -1,0 +1,91 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+<!-- gripper fingers -->
+    <link name="gripper_base">
+    <visual>
+        <origin rpy="1.5708 0 0" xyz="-0.0451 0.031 -0.17376"/>
+        <geometry>
+            <mesh filename="package://mrm_description/meshes/gripper_base.stl" scale=".001 .001 .001"/>
+        </geometry>
+    </visual>
+    <collision>
+        <origin rpy="0 0 0" xyz="0 0 -0.1425"/>
+        <geometry>
+            <box size="0.091 0.063 0.062"/>
+        </geometry>
+    </collision>
+    <inertial>
+        <mass value="0.01"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <inertia ixx="0.0017997696" ixy="0.002937515" ixz="0.00238000234" iyy="0.00296861664" iyz="-0.00330859" izz="0.00283730304" />
+    </inertial>
+    </link>
+
+    <link name="right_finger">
+    <visual>
+        <origin rpy="1.5708 0 0" xyz="-0.091 0 0"/>
+
+        <geometry>
+            <mesh filename="package://mrm_description/meshes/new_gripper_base.stl" scale=".001 .001 .001"/>
+        </geometry>
+        <material name="Cyan">
+            <color rgba="0 1 1 1"/>
+        </material>
+    </visual>
+    <collision>
+        <origin  rpy="1.5708 0 0" xyz="-0.091 0 0"/>
+        <geometry>
+            <mesh filename="package://mrm_description/meshes/new_gripper_base.stl" scale="0.001 0.001 0.001"/>
+        </geometry>
+    </collision>
+    <inertial>
+        <mass value="0.132"/>
+        <origin xyz="-0.07461 0.07602 0.04337" rpy="0 0 0"/>
+        <inertia ixx="0.449023" ixy="-0.060201" ixz="0.12501" iyy="0.084500" iyz="-0.022897" izz="0.505271" />
+    </inertial>
+    </link>
+
+
+    <link name="left_finger">
+    <visual>
+        <origin rpy="1.5708 0 3.1415926539" xyz="0.0905 0 0"/>
+        <geometry>
+            <mesh filename="package://mrm_description/meshes/new_gripper_base.stl" scale=".001 .001 .001"/>
+        </geometry>
+        <material name="Cyan">
+            <color rgba="0 1 1 1"/>
+        </material>
+    </visual>
+    <collision>
+        <origin rpy="1.5708 0 3.1415926539" xyz="0.0905 0 0"/>
+        <geometry>
+            <mesh filename="package://mrm_description/meshes/new_gripper_base.stl" scale="0.001 0.001 0.001"/>
+        </geometry>
+    </collision>
+    <inertial>
+        <mass value="0.132"/>
+        <origin xyz="-0.07461 0.07602 0.04337" rpy="0 0 0"/>
+        <inertia ixx="0.449023" ixy="-0.060201" ixz="0.12501" iyy="0.084500" iyz="-0.022897" izz="0.505271" />
+    </inertial>
+    </link>
+
+<!-- gripper joints -->
+    <joint name="gripper_right" type="prismatic">
+      <axis xyz="1 0 0" />
+      <limit effort="1000.0" lower="-0.02" upper="0.0134" velocity="0.5" />
+      <origin rpy="0 0 0" xyz="0 0.0415 -0.12371" />
+      <parent link="gripper_base" />
+      <child link="right_finger" />
+    </joint>
+
+
+    <joint name="gripper_left" type="prismatic">
+      <axis xyz="1 0 0" />
+      <limit effort="1000.0" lower="-0.0134" upper="0.02" velocity="0.5" />
+      <origin rpy="0 0 0" xyz="0 -0.0415 -0.12371" />
+      <parent link="gripper_base" />
+      <child link="left_finger" />
+    </joint>
+</robot>
+

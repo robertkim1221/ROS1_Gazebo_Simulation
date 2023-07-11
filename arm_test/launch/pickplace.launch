@@ -1,0 +1,13 @@
+<launch>
+   
+ <group ns="arm1">
+    <node name="planning_scene1" pkg="arm_test" type="planning_scene1"/>
+    <node name="pick_and_place" pkg="arm_test" type="pickplace1" />
+ </group> 
+
+ <group ns="arm2">
+    <node name="planning_scene2" pkg="arm_test" type="planning_scene2"/>
+    <node name="pick_and_place" pkg="arm_test" type="pickplace2"/>
+ </group> 
+
+</launch>

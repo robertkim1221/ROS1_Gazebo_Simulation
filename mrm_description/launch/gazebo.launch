@@ -1,0 +1,53 @@
+<launch>
+  # Uses $(find jaco_description)/launch/jaco_gazebo.launch to launch
+  # the jaco arm on the table. For description of arguments please
+  # refer to this launch file.
+
+  # the robot's xacro file
+  <arg name="robot_xacro" default="$(find mrm_description)/urdf/mrm.xacro"/>
+
+  # Specify a name for the robot
+  <arg name="robot_name" default="mrm"/>
+
+  # if the xacro file (robot_xacro) needs additional arguments to xacro.py, put them in here.
+  <arg name="xacro_arguments" default="sensor_on_table:=false"/>
+
+  <arg name="x" default="0"/>
+  <arg name="y" default="0"/>
+  <arg name="z" default="0"/>
+  <arg name="gazebo_world_file" default="worlds/empty.world"/>
+  <arg name="load_joint_state_publisher" default="false"/>
+  <arg name="joint_state_publisher_topic" default="mrm/joint_control"/>
+  <arg name="load_robot_state_publisher" default="false"/>
+  <arg name="joint_states_topic" default="mrm/joint_state"/>
+  <arg name="extra_gazebo_args" default=""/>  
+
+  #####################################
+  # Load robot_description on parameter server
+  #####################################
+  <param name="robot_description" command="$(find xacro)/xacro --inorder '$(find mrm_description)/urdf/mrm.xacro'"/>
+
+  ########################################
+  # Load arm joint and gripper joint names
+  ########################################
+  <arg name="names_config_file" default="$(find mrm_description)/config/mrmjoints.yaml"/>
+  <include file="$(find mrm_description)/launch/init_mrm_joints.launch">
+    <arg name="names_config_file" default="$(arg names_config_file)"/>
+  </include>
+
+  #####################################
+  # Launch gazebo 
+  #####################################
+  <include file="$(find mrm_description)/launch/mrm_gazebo.launch">
+    <arg name="robot_name" value="$(arg robot_name)"/>
+    <arg name="x" value="$(arg x)"/>
+    <arg name="y" value="$(arg y)"/>
+    <arg name="z" value="$(arg z)"/>
+    <arg name="gazebo_world_file" value="$(arg gazebo_world_file)"/>
+    <arg name="load_joint_state_publisher" value="$(arg load_joint_state_publisher)"/>
+    <arg name="joint_state_publisher_topic" value="$(arg joint_state_publisher_topic)"/>
+    <arg name="load_robot_state_publisher" value="$(arg load_robot_state_publisher)"/>
+    <arg name="joint_states_topic" value="$(arg joint_states_topic)"/>
+    <arg name="extra_gazebo_args" value="$(arg extra_gazebo_args)"/>  
+  </include>
+</launch>

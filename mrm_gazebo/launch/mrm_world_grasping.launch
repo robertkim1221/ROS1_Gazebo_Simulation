@@ -1,0 +1,29 @@
+<launch>
+
+<!--FOR SINGLE ROBOT UNCOMMENT BELOW-->
+<!--  <param name="robot_description" command="$(find xacro)/xacro.py '$(find mrm_description)/urdf/mrm.xacro'" /> 
+-->
+
+  <!-- We resume the logic in empty_world.launch -->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" default="$(find mrm_gazebo)/worlds/grasping.world"/>
+    <arg name="debug" value="false" />
+    <arg name="gui" value="true" />
+    <arg name="paused" value="false"/>
+    <arg name="use_sim_time" value="true"/>
+    <arg name="headless" value="false"/>
+  </include>
+
+  <!-- Load the URDF into the ROS Parameter Server -->
+
+
+  <!-- Run a python script to the send a service call to gazebo_ros to spawn a URDF robot -->
+  <!--FOR SINGLE ROBOT UNCOMMENT BELOW-->
+  <!--
+  <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+	args="-urdf -model mrm -param robot_description"/> 
+  -->
+  <!-- SPWANING MULTIPLE ROBOTS (UNCOMMENT BELOW FOR SPAWNING TWO ROBOTS-->
+  <include file="$(find mrm_gazebo)/launch/multiple.launch"/>
+
+</launch>

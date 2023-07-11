@@ -1,0 +1,79 @@
+# PID values to use for JacoJointControlLocalImpl if Joint::SetVelocity()
+# is to be used instead of Joint::SetForce().
+
+mrm:
+  # Publish all joint states -----------------------------------
+  joint_state_controller:
+    type: joint_state_controller/JointStateController
+    publish_rate: 100  
+
+  # Position Controllers ---------------------------------------
+  mrm_0_joint_position_controller:
+    type: position_controllers/JointPositionController
+    joint: base_link__link_01
+    pid: {p: 20, i: 1.0, d: 0}
+  mrm_1_joint_position_controller:
+    type: position_controllers/JointPositionController
+    joint: link1_link2
+    pid: {p: 20, i: 1.0, d: 0}
+  mrm_2_joint_position_controller:
+    type: position_controllers/JointPositionController
+    joint: link2_link3
+    pid: {p: 20, i: 1.0, d: 0}
+  mrm_3_joint_position_controller:
+    type: position_controllers/JointPositionController
+    joint: link3_link4
+    pid: {p: 20, i: 1.0, d: 0}
+  mrm_4_joint_position_controller:
+    type: position_controllers/JointPositionController
+    joint: link4_link5
+    pid: {p: 20, i: 1.0, d: 0}
+  mrm_5_joint_position_controller:
+    type: position_controllers/JointPositionController
+    joint: link5_link6
+    pid: {p: 20, i: 1.0, d: 0}
+  mrm_finger_joint_0_position_controller:
+    type: position_controllers/JointPositionController
+    joint: gripper_right
+    pid: {p: 20, i: 1.0, d: 0}
+  mrm_finger_joint_2_position_controller:
+    type: position_controllers/JointPositionController
+    joint: gripper_left
+    pid: {p: 20, i: 1.0, d: 0}
+
+
+  # Velocity Controllers ---------------------------------------
+  # old values for all: p: 0.8 i: 0.4 d: 0
+  mrm_0_joint_velocity_controller:
+    type: velocity_controllers/JointVelocityController
+    joint: base_link__link_01
+    pid: {p: 0.4, i: 0, d: 0}  
+  mrm_1_joint_velocity_controller:
+    type: velocity_controllers/JointVelocityController
+    joint: link1_link2
+    pid: {p: 0.4, i: 0, d: 0}
+  mrm_2_joint_velocity_controller:
+    type: velocity_controllers/JointVelocityController
+    joint: link2_link3
+    pid: {p: 0.4, i: 0, d: 0}
+  mrm_3_joint_velocity_controller:
+    type: velocity_controllers/JointVelocityController
+    joint: link3_link4
+    pid: {p: 0.4, i: 0, d: 0}
+  mrm_4_joint_velocity_controller:
+    type: velocity_controllers/JointVelocityController
+    joint: link4_link5
+    pid: {p: 0.4, i: 0, d: 0}
+  mrm_5_joint_velocity_controller:
+    type: velocity_controllers/JointVelocityController
+    joint: link5_link6
+    pid: {p: 0.4, i: 0, d: 0}
+  mrm_finger_joint_0_velocity_controller:
+    type: velocity_controllers/JointVelocityController
+    joint: gripper_right
+    pid: {p: 0.4, i: 0, d: 0}
+  mrm_finger_joint_2_velocity_controller:
+    type: velocity_controllers/JointVelocityController
+    joint: gripper_left
+    pid: {p: 0.4, i: 0, d: 0}
+

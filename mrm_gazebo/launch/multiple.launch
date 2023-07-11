@@ -1,0 +1,52 @@
+<launch>
+
+    <!-- first robot-->
+    <group ns="arm1">
+        <param name="tf_prefix" value="arm1_tf"/>
+        <rosparam file="$(find mrm_gazebo)/config/trajectory_control.yaml" command="load" ns="/arm1"/>
+        <rosparam file="$(find mrm_gazebo)/config/mrm_gazebo_joint_states.yaml" command="load" ns="/arm1"/>
+        <param name="/arm1/robot_description"
+        command= "$(find xacro)/xacro.py --inorder '$(find mrm_description)/urdf/mrm.xacro'" />
+
+        <include file="$(find mrm_gazebo)/launch/mrm.launch">
+            <arg name="init_pose" value="-x 0.95 -y 1.0 -z 0"/>
+            <arg name="robot_name" value="Arm1"/>
+        </include>
+
+        <node name="joint_controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
+		output="screen" args="joint_state_controller" ns="/arm1"/>
+
+        <!-- <node pkg="robot_state_publisher" type="robot_state_publisher"
+        name="robot_state_publisher" output="screen" ns="/arm1"/> -->
+
+        <node name="mrm_controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen" 
+        args="--namespace=/arm1
+        joint_controller
+        gripper_controller"/>
+    </group>
+
+    <!-- second robot -->
+    <group ns="arm2">
+        <param name="tf_prefix" value="arm2_tf"/>
+        <rosparam file="$(find mrm_gazebo)/config/trajectory_control.yaml" command="load" ns="/arm2"/>
+        <rosparam file="$(find mrm_gazebo)/config/mrm_gazebo_joint_states.yaml" command="load" ns="/arm2"/>
+        <param name="/arm2/robot_description"
+        command= "$(find xacro)/xacro.py --inorder '$(find mrm_description)/urdf/mrm.xacro'" />
+
+        <include file="$(find mrm_gazebo)/launch/mrm.launch">
+            <arg name="init_pose" value="-x -0.95 -y 1.0 -z 0 "/>
+            <arg name="robot_name" value="Arm2"/>
+        </include>
+
+        <node name="joint_controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
+		output="screen" args="joint_state_controller" ns="/arm2"/>
+
+        <!-- <node pkg="robot_state_publisher" type="robot_state_publisher"
+        name="robot_state_publisher" output="screen" ns="/arm2"/> -->
+
+        <node name="mrm_controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen" 
+        args="--namespace=/arm2
+        joint_controller
+        gripper_controller"/>
+    </group>
+</launch>

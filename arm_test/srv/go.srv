@@ -1,0 +1,9 @@
+string arm_type
+
+---
+
+std_msgs/Header header
+int8 duration1
+int8 duration2
+
+graspposition[] go_vector

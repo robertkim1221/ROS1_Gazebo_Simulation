@@ -1,0 +1,45 @@
+<launch>
+ # The planning and execution components of MoveIt! configured to 
+ # publish the current configuration of the robot (simulated or real)
+ # and the current state of the world as seen by the planner
+  <node name="transform1" pkg="tf" type="static_transform_publisher" args="0.75 0 0 3.14 0 0 world arm1_tf/world 100"/>
+  <node name="transform2" pkg="tf" type="static_transform_publisher" args="-0.75 0 0 3.14 0 0 world arm2_tf/world 100"/>
+
+ <group ns="arm1">
+
+ <param name="tf_prefix" value="arm1_tf"/>
+
+ <include file="$(find mrm_moveit_config)/launch/planning_context.launch">
+   <arg name="robot_description" value="robot_description"/>
+   <arg name="load_robot_description" value="true"/>
+ </include>
+ 
+ <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" >
+ </node>
+
+ <include file="$(find mrm_moveit_config)/launch/move_group.launch">
+  <arg name="publish_monitored_planning_scene" value="true" />
+ </include>
+
+ </group>
+
+
+  <group ns="arm2">
+
+  <param name="tf_prefix" value="arm2_tf"/>
+
+ <include file="$(find mrm_moveit_config)/launch/planning_context.launch">
+   <arg name="robot_description" value="arm2/robot_description"/>
+   <arg name="load_robot_description" value="true"/>
+ </include>
+
+ <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" />
+
+ <include file="$(find mrm_moveit_config)/launch/move_group.launch">
+  <arg name="publish_monitored_planning_scene" value="true" />
+ </include>
+
+ </group>
+  <node name="rviz" pkg="rviz" type="rviz" respawn="false" output="screen" args="-d $(find mrm_moveit_config/launch/moveit.rviz"/>
+
+</launch>

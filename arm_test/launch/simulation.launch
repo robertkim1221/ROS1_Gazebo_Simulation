@@ -1,0 +1,8 @@
+<launch>
+
+
+  <include file="$(find mrm_gazebo)/launch/mrm_world_grasping.launch" />
+  <include file="$(find mrm_moveit_config)/launch/moveit_planning_execution.launch"/>
+   
+
+</launch>

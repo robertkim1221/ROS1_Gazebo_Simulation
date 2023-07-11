@@ -1,0 +1,13 @@
+controller_list:
+  - name: fake_arm_controller
+    joints:
+      - base_link__link_01
+      - link1_link2
+      - link2_link3
+      - link3_link4
+      - link4_link5
+      - link5_link6
+  - name: fake_gripper_controller
+    joints:
+      - gripper_left
+      - gripper_right
